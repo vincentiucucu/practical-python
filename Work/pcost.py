@@ -1,6 +1,6 @@
 # pcost.py
 #
-# Exercise 1.33
+# Exercise 2.16
 '''with open('Work/Data/portfolio.csv', 'rt') as portfolio:
     total_cost = 0
     next(portfolio)
@@ -16,18 +16,19 @@ def portfolio_cost(filename):
     with open(filename, 'rt') as portfolio:
         total_cost = 0
         rows = csv.reader(portfolio)
-        next(rows)
-        for i, row in enumerate(rows):
+        header = next(rows)
+        for rowno, row in enumerate(rows, start=1):
+            record = dict(zip(header, row))
             try:
-                total_cost += int(row[1]) * float(row[2])
+                total_cost += int(record['shares']) * float(record['price'])
             except ValueError as e:
-                print(f'Row {i}: Couldn\'t convert {row} - {e}')
+                print(f'Row {rowno}: Couldn\'t convert {row} - {e}')
         return total_cost
 
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
-    filename = 'Work/Data/portfolio.csv'
+    filename = 'Work/Data/portfoliodate.csv'
 
 cost = portfolio_cost(filename)
 print(f'Total cost: {cost:.2f}')
