@@ -17,11 +17,11 @@ def portfolio_cost(filename):
         total_cost = 0
         rows = csv.reader(portfolio)
         next(rows)
-        for row in rows:
+        for i, row in enumerate(rows):
             try:
                 total_cost += int(row[1]) * float(row[2])
             except ValueError as e:
-                print(f'Warning: bad line; {e}')
+                print(f'Row {i}: Couldn\'t convert {row} - {e}')
         return total_cost
 
 if len(sys.argv) == 2:
