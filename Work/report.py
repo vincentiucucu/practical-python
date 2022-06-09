@@ -2,8 +2,6 @@
 #
 # Exercises 2.9, 2.10, 2.11, 2.12
 import csv
-from multiprocessing.dummy import current_process
-from pprint import pprint
 
 def read_portfolio(filename):
     portfolio = []
