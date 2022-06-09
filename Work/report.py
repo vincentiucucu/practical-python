@@ -12,7 +12,6 @@ def read_portfolio(filename):
         header = next(rows)
         for rowno, row in enumerate(rows, start=1):
             holding = dict(zip(header, row))
-            print(type(holding['price']))
             portfolio.append(holding)
     return portfolio
 
@@ -34,30 +33,17 @@ def make_report(portfolio, prices):
         report.append(record)
     return report
 
+def print_report(report):
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    print('%10s %10s %10s %10s' % headers)
+    print(('-' * 10 + ' ') * len(headers))
+    for name, shares, price, change in report:
+        print(f'{name:>10s} {shares:>10s} {price:>10s} {change:>10.2f}') 
+
 # get table info
 portfolio = read_portfolio('Work/Data/portfoliodate.csv')
 current_prices = read_prices('Work/Data/prices.csv')
 report = make_report(portfolio, current_prices)
-# print header and separating line
-headers = ('Name', 'Shares', 'Price', 'Change')
-print(f'{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}')
-print('-' * 10, '-' * 10, '-' * 10, '-' * 10)
-# print values
-for name, shares, price, change in report:
-    print(f'{name:>10s} {shares:>10s} {price:>10s} {change:>10.2f}')
-
-'''
-initial_value = 0
-gainloss = 0
-portfolio = read_portfolio('Work/Data/portfolio.csv')
-current_prices = read_prices('Work/Data/prices.csv')
-for i in portfolio:
-    initial_value += i['shares'] * i['price']
-    gainloss += i['shares'] * (current_prices[i['name']] - i['price'])
-current_value = initial_value + gainloss
-print(f'Initial value of portfolio: {initial_value:.2f}')
-print(f'Current value of portfolio: {current_value:.2f}')
-print(f'Gain/Loss: {gainloss:.2f}')
-'''
+print_report(report)
 
 
