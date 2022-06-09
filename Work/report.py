@@ -40,10 +40,12 @@ def print_report(report):
     for name, shares, price, change in report:
         print(f'{name:>10s} {shares:>10s} {price:>10s} {change:>10.2f}') 
 
-# get table info
-portfolio = read_portfolio('Work/Data/portfoliodate.csv')
-current_prices = read_prices('Work/Data/prices.csv')
-report = make_report(portfolio, current_prices)
-print_report(report)
+def portfolio_report(portfolio_filename, prices_filename):
+    portfolio = read_portfolio(portfolio_filename)
+    current_prices = read_prices(prices_filename)
+    report = make_report(portfolio, current_prices)
+    return print_report(report)
+
+portfolio_report('Work/Data/portfolio.csv', 'Work/Data/prices.csv')
 
 
